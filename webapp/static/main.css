@@ -1,0 +1,9 @@
+.content {
+    padding-top: 2rem;
+}
+
+.chair td {
+    border: 1px solid #ddd;
+    width: 75px;
+    height: 40px;
+}
