@@ -1,0 +1,71 @@
+{% extends 'base.j2' %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light">
+			<div class="card-body scores">
+				<span class="card-title">Current Scores:</span>
+				<div class="card-text">
+					Backrest Score: <span id="cur-back-score">22</span>
+					<span style="padding-left: 3em">Seat Score: <span id="cur-back-score">25</span></span>
+				</div>
+				<div>
+					Overall: <span id="cur-overall" class="overall-good">Good Posture</span>
+				</div>
+				<div>
+					Problem: <span id="cur-problem">Looking Good!</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light">
+			<div class="card-body scores">
+				<span class="card-title">
+					Average Scores From The Last
+					<select class="select2">
+						<option value="5">5</option>
+						<option value="15">15</option>
+						<option value="30">30</option>
+						<option value="60">60</option>
+					</select>
+					Minutes
+				</span>
+				<div>
+					Backrest Score: <span id="avg-back-score">22</span>
+					<span style="padding-left: 3em">Seat Score: <span id="avg-back-score">25</span></span>
+				</div>
+				<div>
+					Overall: <span id="avg-overall" class="overall-bad">Bad Posture</span>
+				</div>
+				<div>
+					Problem: <span id="avg-problem">Your lower back is against the backrest but your upper back is not, which suggests hunching over.</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light text-center chair-card">
+			<span class="card-header">Current Pressue Readings (Volts)</span>
+			<div class="card-body">
+				<img src="/static/images/chair.png" class="chair-img">
+				
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light">
+			<span class="card-header">Average Pressue Readings (Volts)</span>
+			<div class="card-body">
+				
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

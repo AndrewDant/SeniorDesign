@@ -3,8 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-class Pressure(db.Modelx):
-    id = db.Column(db.Integer, primary_key=True)
+class Pressure(db.Model):
+    p_id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, nullable=False)
     back_left = db.Column(db.Float, nullable=False)
     back_right = db.Column(db.Float, nullable=False)
@@ -15,7 +15,10 @@ class Pressure(db.Modelx):
 
 
 class Result(db.Model):
-    isGood = db.Column(db.Boolean, nullable=False)
-    pressure_set = db.Column(db.Integer, db.ForeignKey('pressure.id'), nullable=False)
+    # good scores are any in a certain range i.e. 0-30
+    back_score = db.Column(db.Float, nullable=False)
+    seat_score = db.Column(db.Float, nullable=False)
+    classification = db.Column(db.String, nullable=False)
+    p_id = db.Column(db.Integer, db.ForeignKey('pressure.id'), primary_key=True)
 
-    data = db.relationship('Pressure', foreign_keys=[pressure_set], backref='dataset')
+    data = db.relationship('Pressure', foreign_keys=[p_id], backref='dataset')
