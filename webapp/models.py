@@ -4,6 +4,7 @@ db = SQLAlchemy()
 
 
 class Pressure(db.Model):
+    # left/right based on sitting on the seat and facing forward
     p_id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, nullable=False)
     back_left = db.Column(db.Float, nullable=False)

@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Post-Chair</title>
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 		
 		{# Bootstrap #}
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -22,6 +21,9 @@
 		{# Select2 #}
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+		{# My CSS #}
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
 		{% block extra_css %}
 		{% endblock %}

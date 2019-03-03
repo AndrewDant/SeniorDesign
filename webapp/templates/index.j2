@@ -8,14 +8,14 @@
 			<div class="card-body scores">
 				<span class="card-title">Current Scores:</span>
 				<div class="card-text">
-					Backrest Score: <span id="cur-back-score">22</span>
-					<span style="padding-left: 3em">Seat Score: <span id="cur-back-score">25</span></span>
+					Backrest Score: <span class="cur back-score">22</span>
+					<span style="padding-left: 3em">Seat Score: <span class="cur seat-score">25</span></span>
 				</div>
 				<div>
-					Overall: <span id="cur-overall" class="overall-good">Good Posture</span>
+					Overall: <span class="cur overall" class="overall-good">Good Posture</span>
 				</div>
 				<div>
-					Problem: <span id="cur-problem">Looking Good!</span>
+					Problem: <span class="cur problem">Looking Good!</span>
 				</div>
 			</div>
 		</div>
@@ -34,14 +34,14 @@
 					Minutes
 				</span>
 				<div>
-					Backrest Score: <span id="avg-back-score">22</span>
-					<span style="padding-left: 3em">Seat Score: <span id="avg-back-score">25</span></span>
+					Backrest Score: <span class="avg back-score">22</span>
+					<span style="padding-left: 3em">Seat Score: <span class="avg seat-score">25</span></span>
 				</div>
 				<div>
-					Overall: <span id="avg-overall" class="overall-bad">Bad Posture</span>
+					Overall: <span class="avg overall" class="overall-bad">Bad Posture</span>
 				</div>
 				<div>
-					Problem: <span id="avg-problem">Your lower back is against the backrest but your upper back is not, which suggests hunching over.</span>
+					Problem: <span class="avg problem">Your lower back is against the backrest but your upper back is not, which suggests hunching over.</span>
 				</div>
 			</div>
 		</div>
@@ -52,8 +52,18 @@
 		<div class="card bg-light text-center chair-card">
 			<span class="card-header">Current Pressue Readings (Volts)</span>
 			<div class="card-body">
-				<img src="/static/images/chair.png" class="chair-img">
-				
+				<div style="position: relative; height: 100%; width: 100%">
+					{# TODO these styles are NOT responsive currently #}
+
+					{# left/right based on sitting on the seat and facing forward #}
+					<span class="cur pressure back-right-pressure">back-right</span>
+					<span class="cur pressure back-bottom-pressure">back-bottom</span>
+					<span class="cur pressure seat-right-pressure">seat-right</span>
+					<img src="/static/images/line-chair.png" class="chair-img">
+					<span class="cur pressure back-left-pressure">back-left</span>
+					<span class="cur pressure seat-rear-pressure">seat-rear</span>
+					<span class="cur pressure seat-left-pressure">seat-left</span>
+				</div>
 			</div>
 		</div>
 	</div>
