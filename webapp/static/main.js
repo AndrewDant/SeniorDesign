@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.select2').select2({
-    minimumResultsForSearch: Infinity
-});
+	    minimumResultsForSearch: Infinity
+	});
 });
 
 // $(document).ready(function() {  
