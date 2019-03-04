@@ -1,8 +1,9 @@
 from flask import Flask, request, session, render_template, abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-from models import db, Pressure
+from datetime import datetime, timedelta
+from models import db, Pressure  # , Result
 import os
+import json
 
 app = Flask(__name__)
 
@@ -19,8 +20,19 @@ if __name__ == "__main__":
 
 
 @app.route("/")
-def home():
+def index():
     return render_template("index.j2")
+
+
+@app.route("/data/")
+def data():
+    num_minutes = int(request.args.get('minutes'))
+    time_offset = datetime.now() - timedelta(minutes=num_minutes)
+
+    data_list = db.session.query(Pressure).filter(Pressure.timestamp > time_offset)\
+        .order_by(Pressure.timestamp.asc()).all()
+
+    return json.dumps([d.serialize() for d in data_list])
 
 
 @app.cli.command("initdb")
@@ -35,11 +47,28 @@ def bootstrap_data():
     db.drop_all()
     db.create_all()
 
-    p1 = Pressure(timestamp=datetime.now(), back_left=1.1, back_right=1.1, back_bottom=.8,
-                  seat_left=2.1, seat_right=2.1, seat_rear=2.1)
+    p1 = Pressure(timestamp=datetime.now(), back_left=1.1, back_right=2.2, back_bottom=.8,
+                  seat_left=.5, seat_right=1, seat_rear=1.4, back_score=19, seat_score=10,
+                  classification="Good Posture")
     db.session.add(p1)
 
-    r1 = Result(back_score=12, seat_score=10, p_id=p1.p_id)
+    p2 = Pressure(timestamp=datetime.now(), back_left=1.4, back_right=1.0, back_bottom=1.8,
+                  seat_left=2.1, seat_right=1.1, seat_rear=1.2, back_score=12, seat_score=15,
+                  classification="Good Posture")
+    db.session.add(p2)
+
+    p3 = Pressure(timestamp=datetime.now(), back_left=3.1, back_right=1.9, back_bottom=2.8,
+                  seat_left=2.3, seat_right=1.2, seat_rear=2, back_score=16, seat_score=30,
+                  classification="Good Posture")
+    db.session.add(p3)
+
+    p4 = Pressure(timestamp=datetime.now(), back_left=1.9, back_right=2.3, back_bottom=1.5,
+                  seat_left=1.5, seat_right=1, seat_rear=2.1, back_score=14, seat_score=40,
+                  classification="Good Posture")
+    db.session.add(p4)
+
+    # r1 = Result(back_score=12, seat_score=10, classification="Good Posture", p_id=p1.p_id)
+    # db.session.add(r1)
 
     db.session.commit()
 

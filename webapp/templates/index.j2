@@ -8,8 +8,8 @@
 			<span class="card-header">Current Scores:</span>
 			<div class="card-body scores">
 				<div class="card-text">
-					Backrest Score: <span class="cur back-score">22</span>
-					<span style="padding-left: 3em">Seat Score: <span class="cur seat-score">25</span></span>
+					Backrest Score: <span class="cur back-score"></span>
+					<span style="padding-left: 3em">Seat Score: <span class="cur seat-score"></span></span>
 				</div>
 				<div>
 					Overall: <span class="cur overall overall-good">Good Posture</span>
@@ -24,7 +24,7 @@
 		<div class="card bg-light score-card">
 			<span class="card-header">
 				Average Scores From The Last
-				<select class="select2">
+				<select class="select2" id="minutes-select">
 					<option value="5">5</option>
 					<option value="15">15</option>
 					<option value="30">30</option>
@@ -35,8 +35,8 @@
 			<div class="card-body scores">
 				
 				<div>
-					Backrest Score: <span class="avg back-score">22</span>
-					<span style="padding-left: 3em">Seat Score: <span class="avg seat-score">25</span></span>
+					Backrest Score: <span class="avg back-score"></span>
+					<span style="padding-left: 3em">Seat Score: <span class="avg seat-score"></span></span>
 				</div>
 				<div>
 					Overall: <span class="avg overall overall-bad">Bad Posture</span>
@@ -57,13 +57,13 @@
 					{# TODO these styles are NOT responsive currently #}
 
 					{# left/right based on sitting on the seat and facing forward #}
-					<span class="cur pressure back-right-pressure">1.0</span>
-					<span class="cur pressure back-bottom-pressure">2.0</span>
-					<span class="cur pressure seat-right-pressure">3.0</span>
+					<span class="cur pressure back-right-pressure"></span>
+					<span class="cur pressure back-bottom-pressure"></span>
+					<span class="cur pressure seat-right-pressure"></span>
 					<img src="/static/images/line-chair.png" class="chair-img">
-					<span class="cur pressure back-left-pressure">4.0</span>
-					<span class="cur pressure seat-rear-pressure">5.0</span>
-					<span class="cur pressure seat-left-pressure">6.0</span>
+					<span class="cur pressure back-left-pressure"></span>
+					<span class="cur pressure seat-rear-pressure"></span>
+					<span class="cur pressure seat-left-pressure"></span>
 				</div>
 			</div>
 		</div>
@@ -76,14 +76,32 @@
 					{# TODO these styles are NOT responsive currently #}
 
 					{# left/right based on sitting on the seat and facing forward #}
-					<span class="avg pressure back-right-pressure">1.0</span>
-					<span class="avg pressure back-bottom-pressure">2.0</span>
-					<span class="avg pressure seat-right-pressure">3.0</span>
+					<span class="avg pressure back-right-pressure"></span>
+					<span class="avg pressure back-bottom-pressure"></span>
+					<span class="avg pressure seat-right-pressure"></span>
 					<img src="/static/images/line-chair.png" class="chair-img">
-					<span class="avg pressure back-left-pressure">4.0</span>
-					<span class="avg pressure seat-rear-pressure">5.0</span>
-					<span class="avg pressure seat-left-pressure">6.0</span>
+					<span class="avg pressure back-left-pressure"></span>
+					<span class="avg pressure seat-rear-pressure"></span>
+					<span class="avg pressure seat-left-pressure"></span>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light chart-card">
+			<span class="card-header">Scores Over Time</span>
+			<div class="card-body">
+				<canvas id="score-canvas" width="350" height="350"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light chart-card">
+			<span class="card-header">Pressures Over Time</span>
+			<div class="card-body">
+				<canvas id="pressure-canvas" width="350" height="350"></canvas>
 			</div>
 		</div>
 	</div>
