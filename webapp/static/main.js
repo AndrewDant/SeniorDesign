@@ -18,6 +18,10 @@ $(document).ready(function() {
 			datasets: [[]]
 		},
 		options: {
+			animation: {
+	            duration: 0, // general animation time
+	        },
+	        responsiveAnimationDuration: 0, // animation duration after a resize
 			responsive: true,
 			tooltips: {
 				mode: 'index',
@@ -25,7 +29,8 @@ $(document).ready(function() {
 			},
 			hover: {
 				mode: 'nearest',
-				intersect: true
+				intersect: true,
+				animationDuration: 0, // duration of animations when hovering an item
 			},
 			scales: {
 				xAxes: [{
@@ -55,6 +60,10 @@ $(document).ready(function() {
 			datasets: [[]]
 		},
 		options: {
+			animation: {
+	            duration: 0, // general animation time
+	        },
+	        responsiveAnimationDuration: 0, // animation duration after a resize
 			responsive: true,
 			tooltips: {
 				mode: 'index',
@@ -62,7 +71,8 @@ $(document).ready(function() {
 			},
 			hover: {
 				mode: 'nearest',
-				intersect: true
+				intersect: true,
+				animationDuration: 0, // duration of animations when hovering an item
 			},
 			scales: {
 				xAxes: [{
@@ -89,7 +99,7 @@ $(document).ready(function() {
 });
 
 function poll() {
-    var timeout = 100000;
+    var timeout = 1000;
     update();
     window.setTimeout(function() { poll(); }, timeout);
 }
@@ -173,21 +183,23 @@ function update() {
 }
 
 function updateText(type, backScore, seatScore, backLeft, backRight, backBottom, seatLeft, seatRight, seatRear) {
-	$("." + type + ".back-score").text(backScore);
-	$("." + type + ".seat-score").text(seatScore);
+	$("." + type + ".back-score").text(formatPressure(backScore));
+	$("." + type + ".seat-score").text(formatPressure(seatScore));
 
-	$("." + type + ".pressure.back-left-pressure").text(backLeft);
-	$("." + type + ".pressure.back-right-pressure").text(backRight);
-	$("." + type + ".pressure.back-bottom-pressure").text(backBottom);
-	$("." + type + ".pressure.seat-left-pressure").text(seatLeft);
-	$("." + type + ".pressure.seat-right-pressure").text(seatRight);
-	$("." + type + ".pressure.seat-rear-pressure").text(seatRear);
+	$("." + type + ".pressure.back-left-pressure").text(formatPressure(backLeft));
+	$("." + type + ".pressure.back-right-pressure").text(formatPressure(backRight));
+	$("." + type + ".pressure.back-bottom-pressure").text(formatPressure(backBottom));
+	$("." + type + ".pressure.seat-left-pressure").text(formatPressure(seatLeft));
+	$("." + type + ".pressure.seat-right-pressure").text(formatPressure(seatRight));
+	$("." + type + ".pressure.seat-rear-pressure").text(formatPressure(seatRear));
 }
 
 function formatPressure(pressure) {
+	// if there's a decimal, cap the length at two past the decimal
 	var str = "" + pressure;
-	var shortened = str.indexOf(".");
-	return Number();
+	var decimal = str.indexOf(".");
+	var res = decimal == -1 ? str : str.substring(0, decimal + 3);
+	return Number(res);
 }
 
 function updateCharts(labels, bScore, sScore, bLeft, bRight, bBottom, sLeft, sRight, sRear) {

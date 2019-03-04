@@ -10,6 +10,7 @@
 
 .card-header {
 	font-weight: bold;
+	height: 54px;
 }
 
 .score-card {
@@ -47,7 +48,6 @@
 	position: relative;
 	height: 100%;
 	width: 100%;
-	margin-top: 5px;
 }
 
 /* overriding bootstrap column padding */
@@ -62,17 +62,17 @@
 
 /* left/right based on sitting on the seat and facing forward */
 .back-right-pressure {
-	margin-left: -25px;
+	margin-left: -32px;
 	top: 38px;
 }
 
 .back-bottom-pressure {
-	margin-left: -25px;
+	margin-left: -32px;
 	top: 112px;
 }
 
 .seat-right-pressure {
-	margin-left: -25px;
+	margin-left: -32px;
 	top: 215px;
 }
 

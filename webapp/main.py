@@ -1,4 +1,4 @@
-from flask import Flask, request, session, render_template, abort, redirect, url_for
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 from models import db, Pressure  # , Result
