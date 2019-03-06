@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Post-Chair</title>
+		
+		{# jquery #}
+		<script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') }}"></script>
+
+		{# Bootstrap #}
+		<link rel="stylesheet" href="{{ url_for('static', filename='node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+		<script src="{{ url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+		{# Select2 #}
+		<link rel="stylesheet" href="{{ url_for('static', filename='node_modules/select2/dist/css/select2.min.css') }}">
+		<script src="{{ url_for('static', filename='node_modules/select2/dist/js/select2.min.js') }}"></script>
+
+		{# My CSS #}
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+		{# Chartjs #}
+		<script src="{{ url_for('static', filename='node_modules/chart.js/dist/Chart.js') }}"></script>
+
+		{% block extra_css %}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="content container">
+			{% block content %}
+
+			{% endblock %}
+		</div>
+
+			<script src="{{ url_for('static', filename='main.js') }}"></script>
+			{% block extra_js %}
+			{% endblock %}
+	</body>
+</html>	
