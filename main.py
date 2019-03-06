@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from datetime import datetime, timedelta
 from models import db, Pressure  # , Result
+from k_nearest import *
 import os
 import json
 import random
@@ -22,6 +23,19 @@ if __name__ == "__main__":
 @app.route("/")
 def index():
     return render_template("index.j2")
+
+
+@app.route("/input/", methods=["POST"])
+def data():
+    json = request.get_json()
+
+    back_score = generate_score([json['back_left'], json['back_right'], json['back_bottom']])
+    seat_score = generate_score([json['seat_left'], json['seat_right'], json['seat_rear']])
+
+
+    p1 = Pressure(timestamp=datetime.now(), back_left=json['back_left'], back_right=json['back_left'], back_bottom=json['back_left'],
+                  seat_left=json['back_left'], seat_right=json['back_left'], seat_rear=json['back_left'], back_score=back_score, seat_score=seat_score,
+                  classification="Good Posture")
 
 
 @app.route("/data/")
