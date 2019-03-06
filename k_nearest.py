@@ -1,7 +1,7 @@
 #-----------------------------------------Program Info--------------------------------------------#
 # Author: Julian Linkhauer
 # Created: 02/08/2019
-# Last Modified: 03/01/2019
+# Last Modified: 03/04/2019
 # Purpose: Generate a classified scatter plot based on random input data using KNN
 #-------------------------------------------------------------------------------------------------#
 
@@ -81,11 +81,12 @@ def main():
     print('Accuracy: ', knn.score(test_in,test_out))               # Calculate model accuracy
     print('Confusion Matrix: ')
     print(confusion_matrix(test_out,knn.predict(test_in)))         # Display confusion matrix of test data
-    new_data = [int(x) for x in input("Enter 6 Integer Scores: ").split()] # Get new input from user
+    new_data = [int(x) for x in input("Enter 6 Integer Values: ").split()] # Get new input from user
     back_score = generate_score(new_data[0:3])                     # Generate backrest score
     seat_score = generate_score(new_data[4:6])                     # Generate seat score
     print('Backrest Score: ', back_score)
     print('Seat Score: ', seat_score)
-    print('Predicted Class: ', make_prediction(knn,back_score,seat_score))
+    print('Predicted Class: ', make_prediction(knn,back_score,seat_score)[0])
+
 if __name__ == '__main__':
     main()
