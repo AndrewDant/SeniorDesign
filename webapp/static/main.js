@@ -240,13 +240,29 @@ function updateText(type, backScore, seatScore, backLeft, backRight, backBottom,
 	var feedback = "N/A";
 
 	if (backScore > 0 && backScore < 30 && seatScore > 0 && seatScore < 30) {
+		$("." + type + ".overall").text("Good Posture");
+		$("." + type + ".overall").removeClass("overall-bad");
+		$("." + type + ".overall").removeClass("overall-good");
+		$("." + type + ".overall").addClass("overall-good");
+		
+
 		feedback = "Looking Good!";
 	} else if (backScore > 0 && backScore < 30) {
+		$("." + type + ".overall").text("Bad Posture");
+
+		$("." + type + ".overall").removeClass("overall-bad");
+		$("." + type + ".overall").removeClass("overall-good");
+		$("." + type + ".overall").addClass("overall-bad");
+
 		if (seatLeft > 1.5 * seatRight)
 			feedback = "Your weight is unbalanced to the left of the seat.";
 		else if (seatRight > 1.5 * seatLeft)
 			feedback = "Your weight is unbalanced to the right of the seat.";
 	} else if (seatScore > 0 && seatScore < 30) {
+		$("." + type + ".overall").text("Bad Posture");
+				$("." + type + ".overall").removeClass("overall-bad");
+		$("." + type + ".overall").removeClass("overall-good");
+		$("." + type + ".overall").addClass("overall-bad");
 		if (backLeft > 1.5 * backBottom && backRight > 1.5 * backBottom)
 			feedback = "Your upper back is against the backrest but your lower back is not. Try not to arch your back.";
 		else if (backBottom > 1.5 * backLeft && backBottom > 1.5 * backRight)

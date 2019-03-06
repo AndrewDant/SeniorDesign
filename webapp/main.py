@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 from models import db, Pressure  # , Result
 import os
@@ -30,8 +29,8 @@ def data():
     new_data = Pressure(timestamp=datetime.now(), back_left=random.uniform(1, 3.3),
                         back_right=random.uniform(1.8, 3.3), back_bottom=random.uniform(1.5, 3),
                         seat_left=random.uniform(0, 2.3), seat_right=random.uniform(0, 2),
-                        seat_rear=random.uniform(1, 1.9), back_score=random.uniform(-10, 50),
-                        seat_score=random.uniform(-20, 30),
+                        seat_rear=random.uniform(1, 1.9), back_score=random.uniform(0, 50),
+                        seat_score=random.uniform(0, 50),
                         classification="Good Posture")
     db.session.add(new_data)
     db.session.commit()
