@@ -16,6 +16,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
+main()
+
 if __name__ == "__main__":
     app.run(threaded=True)
 
@@ -26,16 +28,21 @@ def index():
 
 
 @app.route("/input/", methods=["POST"])
-def data():
-    json = request.get_json()
+def data_input():
+    data_json = request.get_json()
 
-    back_score = generate_score([json['back_left'], json['back_right'], json['back_bottom']])
-    seat_score = generate_score([json['seat_left'], json['seat_right'], json['seat_rear']])
+    back_score = generate_score([data_json['back_left'], data_json['back_right'], data_json['back_bottom']])
+    seat_score = generate_score([data_json['seat_left'], data_json['seat_right'], data_json['seat_rear']])
 
-
-    p1 = Pressure(timestamp=datetime.now(), back_left=json['back_left'], back_right=json['back_left'], back_bottom=json['back_left'],
-                  seat_left=json['back_left'], seat_right=json['back_left'], seat_rear=json['back_left'], back_score=back_score, seat_score=seat_score,
+    # TODO real classification
+    p1 = Pressure(timestamp=datetime.now(), back_left=data_json['back_left'], back_right=data_json['back_right'], back_bottom=data_json['back_bottom'],
+                  seat_left=data_json['seat_left'], seat_right=data_json['seat_right'], seat_rear=data_json['seat_rear'], back_score=back_score, seat_score=seat_score,
                   classification="Good Posture")
+
+    db.session.add(p1)
+    db.session.commit()
+
+    return json.dumps(p1.serialize())
 
 
 @app.route("/data/")
@@ -46,8 +53,10 @@ def data():
                         seat_rear=random.uniform(1, 1.9), back_score=random.uniform(0, 50),
                         seat_score=random.uniform(0, 50),
                         classification="Good Posture")
-    db.session.add(new_data)
-    db.session.commit()
+    # db.session.add(new_data)
+    # db.session.commit()
+
+    print("WTF")
 
     num_minutes = int(request.args.get('minutes'))
     time_offset = datetime.now() - timedelta(minutes=num_minutes)
