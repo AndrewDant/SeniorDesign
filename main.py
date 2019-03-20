@@ -56,8 +56,6 @@ def data():
     # db.session.add(new_data)
     # db.session.commit()
 
-    print("WTF")
-
     num_minutes = int(request.args.get('minutes'))
     time_offset = datetime.now() - timedelta(minutes=num_minutes)
 
