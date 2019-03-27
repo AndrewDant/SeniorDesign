@@ -57,36 +57,49 @@
 }
 
 .pressure {
+	border-radius: 5px;
 	position: absolute;
 }
 
 /* left/right based on sitting on the seat and facing forward */
+.back-left-pressure {
+	border: 2px solid rgb(255,0,0); /* fallback if rgba fails */
+	border: 2px solid rgba(255,0,0,.75);
+	margin-left: 1px;
+	top: 38px;
+}
+
 .back-right-pressure {
+	border: 2px solid rgb(0,0,255); /* fallback if rgba fails */
+	border: 2px solid rgba(0,0,255,.75);
 	margin-left: -32px;
 	top: 38px;
 }
 
 .back-bottom-pressure {
+	border: 2px solid rgb(0,155,0); /* fallback if rgba fails */
+	border: 2px solid rgba(0,155,0,.75);
 	margin-left: -32px;
 	top: 112px;
 }
 
+.seat-left-pressure {
+	border: 2px solid rgb(0,63,92); /* fallback if rgba fails */
+	border: 2px solid rgba(0,63,92,.65);
+	margin-left: 1px;
+	top: 200px;
+}
+
 .seat-right-pressure {
+	border: 2px solid rgb(128,0,128); /* fallback if rgba fails */
+	border: 2px solid rgba(128,0,128,.65);
 	margin-left: -32px;
 	top: 215px;
 }
 
-.back-left-pressure {
-	margin-left: 5px;
-	top: 38px;
-}
-
 .seat-rear-pressure {
-	margin-left: 5px;
+	border: 2px solid rgb(255,165,0); /* fallback if rgba fails */
+	border: 2px solid rgba(255,165,0,.75);
+	margin-left: 1px;
 	top: 165px;
-}
-
-.seat-left-pressure {
-	margin-left: 5px;
-	top: 200px;
 }
