@@ -53,8 +53,8 @@ def data():
                         seat_rear=random.uniform(1, 1.9), back_score=random.uniform(0, 50),
                         seat_score=random.uniform(0, 50),
                         classification="Good Posture")
-    # db.session.add(new_data)
-    # db.session.commit()
+    db.session.add(new_data)
+    db.session.commit()
 
     num_minutes = int(request.args.get('minutes'))
     time_offset = datetime.now() - timedelta(minutes=num_minutes)
@@ -96,9 +96,6 @@ def bootstrap_data():
                   seat_left=1.5, seat_right=1, seat_rear=2.1, back_score=14, seat_score=40,
                   classification="Good Posture")
     db.session.add(p4)
-
-    # r1 = Result(back_score=12, seat_score=10, classification="Good Posture", p_id=p1.p_id)
-    # db.session.add(r1)
 
     db.session.commit()
 
