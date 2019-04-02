@@ -48,7 +48,7 @@ div.asterisk {
 }
 
 .chair-card {
-	min-height: 560px !important;
+	min-height: 570px !important;
 }
 
 .chair-container {
@@ -94,17 +94,17 @@ div.asterisk {
 }
 
 .seat-left-pressure {
-	border: 2px solid rgb(0,63,92); /* fallback if rgba fails */
-	border: 2px solid rgba(0,63,92,.65);
-	margin-left: 1px;
-	top: 200px;
+	border: 2px solid rgb(165, 42, 42); /* fallback if rgba fails */
+	border: 2px solid rgba(165, 42, 42, .8);
+	margin-left: -32px;
+	top: 215px;
 }
 
 .seat-right-pressure {
 	border: 2px solid rgb(128,0,128); /* fallback if rgba fails */
 	border: 2px solid rgba(128,0,128,.65);
-	margin-left: -32px;
-	top: 215px;
+	margin-left: 1px;
+	top: 200px;
 }
 
 .seat-rear-pressure {

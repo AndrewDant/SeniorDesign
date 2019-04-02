@@ -326,8 +326,8 @@ function updateCharts(labels, bScore, sScore, bLeft, bRight, bBottom, sLeft, sRi
 			fill: false
 	}, {
 		label: "Seat Right",
-		backgroundColor: "#003f5c",
-			borderColor: "#003f5c",
+		backgroundColor: "brown",
+			borderColor: "brown",
 			data: sRight,
 			fill: false
 	}, {
