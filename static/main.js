@@ -32,50 +32,6 @@ $(document).ready(function() {
 				intersect: true,
 				animationDuration: 0, // duration of animations when hovering an item
 			},
-			legend: {
-				labels: {
-			        generateLabels: (chart) => {
-
-			          chart.legend.afterFit = function () {
-			            var width = this.width; 
-			            console.log(this);
-			           
-			            this.lineWidths = this.lineWidths.map( () => this.width-12 );
-			            
-			            this.options.labels.padding = 30;
-			            this.options.labels.boxWidth = 15;
-			          };
-
-			          var data = chart.data;
-			          //https://github.com/chartjs/Chart.js/blob/1ef9fbf7a65763c13fa4bdf42bf4c68da852b1db/src/controllers/controller.doughnut.js
-			          if (data.labels.length && data.datasets.length) {
-			            return data.labels.map((label, i) => {
-			              var meta = chart.getDatasetMeta(0);
-			              var ds = data.datasets[0];
-			              var arc = meta.data[i];
-			              var custom = arc && arc.custom || {};
-			              var getValueAtIndexOrDefault = this.getValueAtIndexOrDefault;
-			              var arcOpts = chart.options.elements.arc;
-			              var fill = data.datasets[i] && data.datasets[i].backgroundColor ? data.datasets[i].backgroundColor : arcOpts.backgroundColor;
-			              var stroke = data.datasets[i] && data.datasets[i].backgroundColor ? data.datasets[i].backgroundColor : arcOpts.borderColor;
-			              var bw = data.datasets[i] && data.datasets[i].backgroundColor ? data.datasets[i].backgroundColor : arcOpts.borderWidth;
-			              
-			              return {
-			                text: label,
-			                fillStyle: fill,
-			                strokeStyle: stroke,
-			                lineWidth: bw,
-			                hidden: isNaN(ds.data[i]) || meta.data[i].hidden,
-
-			                // Extra data used for toggling the correct item
-			                index: i
-			              };
-			            });
-			          }
-			          return [];
-			        }
-			      }
-			},
 			scales: {
 				xAxes: [{
 					display: true,
