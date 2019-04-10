@@ -91,5 +91,5 @@ def bootstrap_data():
 
 
 if __name__ == "__main__":
-    print("main")
+    init_db()
     application.run(threaded=True)
