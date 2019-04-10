@@ -1,7 +1,7 @@
 #-----------------------------------------Program Info--------------------------------------------#
 # Author: Julian Linkhauer
 # Created: 02/08/2019
-# Last Modified: 03/04/2019
+# Last Modified: 04/08/2019
 # Purpose: Generate a classified scatter plot based on random input data using KNN
 #-------------------------------------------------------------------------------------------------#
 
@@ -13,6 +13,44 @@ import seaborn as sns
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
+
+# Function: make_advice
+# Purpose:
+#   Generate simple advice for someone sitting in the chair based on sensor data
+#   with all directions taken from the viewpoint of a person sitting in the chair
+#   normally
+# Input:
+#   br_left     = backrest left sensor value
+#   br_bottom   = backrest bottom sensor value
+#   br_right    = backrest right sensor value
+#   s_left      = seat left sensor value
+#   s_left      = seat back sensor value
+#   s_left      = seat right sensor value
+# Output:
+#   advice_string = String of statements to output based on sensor values in relation
+#                   to each other
+def make_advice(br_left,br_bottom,br_right,s_left,s_back,s_right):
+    advice_string = "\n"
+    if(br_left == 0 and br_right == 0 and br_bottom == 0 and s_left == 0 and s_right == 0 and s_back == 0):
+        advice_string = advice_string + "No one is sitting in the chair\n"
+    else:
+        if((br_left == 0 and br_right == 0) or (br_bottom > br_left and br_bottom > br_right)):
+            advice_string = advice_string + "You are leaning too far forward\n"
+        elif(br_bottom == 0 or (br_left > br_bottom and br_right > br_bottom)):
+            advice_string = advice_string + "You are leaning too far back\n"
+        if(br_left > br_right):
+            advice_string = advice_string + "You are leaning too far to your left\n"
+        elif(br_right > br_left):
+            advice_string = advice_string + "You are leaning too far to your right\n"
+        if(s_back == 0 or (s_left > s_back and s_right > s_back)):
+            advice_string = advice_string + "You are sitting too far forward\n"
+        elif((s_left == 0 and s_right == 0) or (s_back > s_left and s_back > s_right)):
+            advice_string = advice_string + "You are not resting your legs on the chair\n"
+        if(s_left > s_right):
+            advice_string = advice_string + "You are sitting too far to the left\n"
+        elif(s_right > s_left):
+            advice_string = advice_string + "You are sitting too far to the right\n"
+    return advice_string
 
 # Function: get_data
 # Purpose:
@@ -74,10 +112,10 @@ def make_prediction(model,back_score,seat_score):
 def main():
     model_data = get_data()                                       # Get data for model training and testing
     knn, data_table, test_in, test_out = make_model(model_data)  # Train model using input data
-    sns.set_context('notebook',font_scale=1.1)
-    sns.set_style('ticks')
-    sns.lmplot('Seat Score','Backrest Score', scatter=True,fit_reg=False,data=data_table,hue='Class')
-    plt.show()
+    #sns.set_context('notebook',font_scale=1.1)
+    #sns.set_style('ticks')
+    #sns.lmplot('Seat Score','Backrest Score', scatter=True,fit_reg=False,data=data_table,hue='Class')
+    #plt.show()
     print('Accuracy: ', knn.score(test_in,test_out))               # Calculate model accuracy
     print('Confusion Matrix: ')
     print(confusion_matrix(test_out,knn.predict(test_in)))         # Display confusion matrix of test data
@@ -87,6 +125,7 @@ def main():
     print('Backrest Score: ', back_score)
     print('Seat Score: ', seat_score)
     print('Predicted Class: ', make_prediction(knn,back_score,seat_score)[0])
+    print('Advice: ', make_advice(new_data[0],new_data[1],new_data[2],new_data[3],new_data[4],new_data[5]))
 
 if __name__ == '__main__':
     main()
