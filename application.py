@@ -16,8 +16,6 @@ application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(application)
 
-main()
-
 
 @application.route("/")
 def index():
@@ -46,14 +44,14 @@ def data_input():
 
 @application.route("/data/")
 def data():
-    new_data = Pressure(timestamp=datetime.now(), back_left=random.randint(0, 1023),
-                        back_right=random.randint(0, 1023), back_bottom=random.randint(0, 1023),
-                        seat_left=random.randint(0, 1023), seat_right=random.randint(0, 1023),
-                        seat_rear=random.randint(0, 1023), back_score=random.uniform(0, 50),
-                        seat_score=random.uniform(0, 50),
-                        classification=random.choice(["Good Posture", "Bad Posture"]))
-    db.session.add(new_data)
-    db.session.commit()
+    # new_data = Pressure(timestamp=datetime.now(), back_left=random.randint(0, 1023),
+    #                     back_right=random.randint(0, 1023), back_bottom=random.randint(0, 1023),
+    #                     seat_left=random.randint(0, 1023), seat_right=random.randint(0, 1023),
+    #                     seat_rear=random.randint(0, 1023), back_score=random.uniform(0, 50),
+    #                     seat_score=random.uniform(0, 50),
+    #                     classification=random.choice(["Good Posture", "Bad Posture"]))
+    # db.session.add(new_data)
+    # db.session.commit()
 
     num_minutes = int(request.args.get('minutes'))
     time_offset = datetime.now() - timedelta(minutes=num_minutes)
@@ -88,6 +86,9 @@ def bootstrap_data():
     db.session.commit()
 
     print("Added bootstrap data")
+
+
+main()
 
 
 if __name__ == "__main__":
