@@ -18,9 +18,6 @@ db.init_app(application)
 
 main()
 
-if __name__ == "__main__":
-    application.run(threaded=True)
-
 
 @application.route("/")
 def index():
@@ -91,3 +88,8 @@ def bootstrap_data():
     db.session.commit()
 
     print("Added bootstrap data")
+
+
+if __name__ == "__main__":
+    print("main")
+    application.run(threaded=True)
