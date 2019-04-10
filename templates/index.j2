@@ -4,12 +4,15 @@
 
 <div class="row">
 	<div class="col-md-12 col-lg-6">
-		<div class="card bg-light score-card">
-			<span class="card-header">Current Scores:</span>
+		<div class="card bg-light text-center score-card">
+			<span class="card-header">Current Scores</span>
 			<div class="card-body scores">
 				<div class="card-text">
 					Backrest Score: <span class="cur back-score"></span>
 					<span style="padding-left: 3em">Seat Score: <span class="cur seat-score"></span></span>
+					<div class="asterisk">
+						*Lower scores are better, with anything below 30 considered good
+					</div>
 				</div>
 				<div>
 					Overall: <span class="cur overall overall-good">Good Posture</span>
@@ -21,7 +24,7 @@
 		</div>
 	</div>
 	<div class="col-md-12 col-lg-6">
-		<div class="card bg-light score-card">
+		<div class="card bg-light text-center score-card">
 			<span class="card-header">
 				Average Scores From The Last
 				<select class="select2" id="minutes-select">
@@ -30,13 +33,16 @@
 					<option value="30">30</option>
 					<option value="60">60</option>
 				</select>
-				Minutes:
+				Minutes
 			</span>
 			<div class="card-body scores">
 				
 				<div>
 					Backrest Score: <span class="avg back-score"></span>
 					<span style="padding-left: 3em">Seat Score: <span class="avg seat-score"></span></span>
+					<div class="asterisk">
+						*Lower scores are better, with anything below 30 considered good
+					</div>
 				</div>
 				<div>
 					Overall: <span class="avg overall overall-bad">Bad Posture</span>
@@ -50,47 +56,7 @@
 </div>
 <div class="row">
 	<div class="col-md-12 col-lg-6">
-		<div class="card bg-light text-center chair-card">
-			<span class="card-header">Current Pressue Readings (Volts)</span>
-			<div class="card-body">
-				<div class="chair-container">
-					{# TODO these styles are NOT responsive currently #}
-
-					{# left/right based on sitting on the seat and facing forward #}
-					<span class="cur pressure back-right-pressure"></span>
-					<span class="cur pressure back-bottom-pressure"></span>
-					<span class="cur pressure seat-right-pressure"></span>
-					<img src="/static/images/line-chair.png" class="chair-img">
-					<span class="cur pressure back-left-pressure"></span>
-					<span class="cur pressure seat-rear-pressure"></span>
-					<span class="cur pressure seat-left-pressure"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12 col-lg-6">
-		<div class="card bg-light text-center chair-card">
-			<span class="card-header">Average Pressue Readings (Volts)</span>
-			<div class="card-body">
-				<div class="chair-container">
-					{# TODO these styles are NOT responsive currently #}
-
-					{# left/right based on sitting on the seat and facing forward #}
-					<span class="avg pressure back-right-pressure"></span>
-					<span class="avg pressure back-bottom-pressure"></span>
-					<span class="avg pressure seat-right-pressure"></span>
-					<img src="/static/images/line-chair.png" class="chair-img">
-					<span class="avg pressure back-left-pressure"></span>
-					<span class="avg pressure seat-rear-pressure"></span>
-					<span class="avg pressure seat-left-pressure"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12 col-lg-6">
-		<div class="card bg-light chart-card">
+		<div class="card bg-light text-center chart-card">
 			<span class="card-header">Scores Over Time</span>
 			<div class="card-body">
 				<canvas id="score-canvas" width="350" height="350"></canvas>
@@ -98,10 +64,56 @@
 		</div>
 	</div>
 	<div class="col-md-12 col-lg-6">
-		<div class="card bg-light chart-card">
+		<div class="card bg-light text-center chart-card">
 			<span class="card-header">Pressures Over Time</span>
 			<div class="card-body">
 				<canvas id="pressure-canvas" width="350" height="350"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light text-center chair-card">
+			<span class="card-header chair-header">Current Pressue Readings</span>
+			<div class="card-body">
+				<div class="chair-container">
+					{# TODO these styles are NOT responsive currently #}
+
+					{# left/right based on sitting on the seat and facing forward #}
+					<span class="cur pressure back-right-pressure"></span>
+					<span class="cur pressure back-bottom-pressure"></span>
+					<span class="cur pressure seat-left-pressure"></span>
+					<img src="/static/images/line-chair.png" class="chair-img">
+					<span class="cur pressure back-left-pressure"></span>
+					<span class="cur pressure seat-rear-pressure"></span>
+					<span class="cur pressure seat-right-pressure"></span>
+				</div>
+				<div class="asterisk">
+					*Pressure colors correspond to their color on the Pressures Over Time chart
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12 col-lg-6">
+		<div class="card bg-light text-center chair-card">
+			<span class="card-header chair-header">Average Pressue Readings</span>
+			<div class="card-body">
+				<div class="chair-container">
+					{# TODO these styles are NOT responsive currently #}
+
+					{# left/right based on sitting on the seat and facing forward #}
+					<span class="avg pressure back-right-pressure"></span>
+					<span class="avg pressure back-bottom-pressure"></span>
+					<span class="avg pressure seat-left-pressure"></span>
+					<img src="/static/images/line-chair.png" class="chair-img">
+					<span class="avg pressure back-left-pressure"></span>
+					<span class="avg pressure seat-rear-pressure"></span>
+					<span class="avg pressure seat-right-pressure"></span>
+				</div>
+				<div class="asterisk">
+					*Pressure colors correspond to their color on the Pressures Over Time chart
+				</div>
 			</div>
 		</div>
 	</div>

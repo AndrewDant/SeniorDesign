@@ -301,37 +301,37 @@ function updateCharts(labels, bScore, sScore, bLeft, bRight, bBottom, sLeft, sRi
 
 	pressureChart.data.labels = labels;
 	pressureChart.data.datasets = [{
-		label: "",
+		label: "Back Left",
 		backgroundColor: "red",
 			borderColor: "red",
 			data: bLeft,
 			fill: false
 	}, {
-		label: "",
+		label: "Back Right",
 		backgroundColor: "blue",
 			borderColor: "blue",
 			data: bRight,
 			fill: false
 	}, {
-		label: "",
+		label: "Lower Back",
 		backgroundColor: "green",
 			borderColor: "green",
 			data: bBottom,
 			fill: false
 	}, {
-		label: "",
+		label: "Seat Left",
 		backgroundColor: "purple",
 			borderColor: "purple",
 			data: sLeft,
 			fill: false
 	}, {
-		label: "",
-		backgroundColor: "#003f5c",
-			borderColor: "#003f5c",
+		label: "Seat Right",
+		backgroundColor: "brown",
+			borderColor: "brown",
 			data: sRight,
 			fill: false
 	}, {
-		label: "",
+		label: "Seat Rear",
 		backgroundColor: "orange",
 			borderColor: "orange",
 			data: sRear,
