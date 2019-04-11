@@ -111,109 +111,27 @@ function update() {
 		data: 'minutes=' + minutes
 	}).done(function(data) {
 
-		var avgBackScore = 0;
-		var avgSeatScore = 0;
+		var results = JSON.parse(data);
+		if(results && results.latest) {
 
-		var avgBackLeft = 0;
-		var avgBackRight = 0;
-		var avgBackBottom = 0;
-		var avgSeatLeft = 0;
-		var avgSeatRight = 0;
-		var avgSeatRear = 0;
+			latest = results.latest;
+			average = results.average;
 
-		var labels = [];
-
-		var backScoreData = [];
-		var seatScoreData = [];
-
-		var backLeftData = [];
-		var backRightData = [];
-		var backBottomData = [];
-		var seatLeftData = [];
-		var seatRightData = [];
-		var seatRearData = [];
-
-		// this isn't actually an array for some reason, but works similarly
-		var rs = JSON.parse(data);
-		var len = rs.length;
-		
-		if(rs != null && len > 0) {
-			// set the current values
-			var latest = rs[len - 1];
-			updateText("cur", latest.back_score, latest.seat_score, latest.back_left, latest.back_right,
-				latest.back_bottom, latest.seat_left, latest.seat_right, latest.seat_rear);
-
-			// calculate averages
-			for(var i = 0; i < len; i++) {
-				var element = rs[i];
-
-				avgBackScore += element.back_score / len;
-				avgSeatScore += element.seat_score / len;
-
-				avgBackLeft += element.back_left / len;
-				avgBackRight += element.back_right / len;
-				avgBackBottom += element.back_bottom / len;
-				avgSeatLeft += element.seat_left / len;
-				avgSeatRight += element.seat_right / len;
-				avgSeatRear += element.seat_rear / len;
-
-				// labels.push(element.timestamp);
-
-				// backScoreData.push(element.back_score);
-				// seatScoreData.push(element.seat_score);
-
-				// backLeftData.push(element.back_left);
-				// backRightData.push(element.back_right);
-				// backBottomData.push(element.back_bottom);
-				// seatLeftData.push(element.seat_left);
-				// seatRightData.push(element.seat_right);
-				// seatRearData.push(element.seat_rear);
-			}
-
-			var decFactor = Math.floor(Math.sqrt(len));
-
-			// populate chart with decimated data
-			for(var j = 0; j + decFactor - 1 < len; j += decFactor) {
-				var backScorePoint = 0;
-				var seatScorePoint = 0;
-
-				var backLeftPoint = 0;
-				var backRightPoint = 0;
-				var backBottomPoint = 0;
-				var seatLeftPoint = 0;
-				var seatRightPoint = 0;
-				var seatRearPoint = 0;
-
-				// TODO needs to be more consistent
-				// aka jump less, use same starting points when decFactor same?
-
-				for(var k = 0; k < decFactor; k++) {
-					backScorePoint += rs[j+k].back_score;
-					seatScorePoint += rs[j+k].seat_score;
-
-					backLeftPoint += rs[j+k].back_left;
-					backRightPoint += rs[j+k].back_right;
-					backBottomPoint += rs[j+k].back_bottom;
-					seatLeftPoint += rs[j+k].seat_left;
-					seatRightPoint += rs[j+k].seat_right;
-					seatRearPoint += rs[j+k].seat_rear;
-				}
-
-				// TODO improve
-				labels.push(rs[j+Math.floor(decFactor/2)].timestamp);
-
-				backScoreData.push(backScorePoint / decFactor);
-				seatScoreData.push(seatScorePoint / decFactor);
-
-				backLeftData.push(backLeftPoint / decFactor);
-				backRightData.push(backRightPoint / decFactor);
-				backBottomData.push(backBottomPoint / decFactor);
-				seatLeftData.push(seatLeftPoint / decFactor);
-				seatRightData.push(seatRightPoint / decFactor);
-				seatRearData.push(seatRearPoint / decFactor);
-			}
+			labels = results.labels;
 			
-			updateText("avg", avgBackScore, avgSeatScore, avgBackLeft, avgBackRight, avgBackBottom, avgSeatLeft, avgSeatRight, avgSeatRear);
+			backScoreData = results.back_score_data;
+			seatScoreData = results.seat_score_data;
+			
+			backLeftData = results.back_left_data;
+			backRightData = results.back_right_data;
+			backBottomData = results.backBottom_data;
+			seatLeftData = results.seat_left_data;
+			seatRightData = results.seat_right_data;
+			seatRearData = results.seatRear_data;
+
+			updateText("cur", latest);
+			
+			updateText("avg", average);
 
 			updateCharts(labels, backScoreData, seatScoreData, backLeftData, backRightData,
 				backBottomData, seatLeftData, seatRightData, seatRearData);
@@ -226,50 +144,58 @@ function update() {
 	});
 }
 
-function updateText(type, backScore, seatScore, backLeft, backRight, backBottom, seatLeft, seatRight, seatRear) {
+function updateText(type, dataset) {
+
+	backScore = dataset.back_score;
+	seatScore = dataset.seat_score;
+	classification = dataset.classification;
+	feedback = dataset.feedback;
+
+	backLeft = dataset.back_left;
+	backRight = dataset.back_right;
+	backBottom = dataset.back_bottom;
+	seatLeft = dataset.seat_left;
+	seatRight = dataset.seat_right;
+	seatRear = dataset.seat_rear;
+	
 	$("." + type + ".back-score").text(formatPressure(backScore));
 	$("." + type + ".seat-score").text(formatPressure(seatScore));
 
-	$("." + type + ".pressure.back-left-pressure").text(formatPressure(backLeft));
-	$("." + type + ".pressure.back-right-pressure").text(formatPressure(backRight));
-	$("." + type + ".pressure.back-bottom-pressure").text(formatPressure(backBottom));
-	$("." + type + ".pressure.seat-left-pressure").text(formatPressure(seatLeft));
-	$("." + type + ".pressure.seat-right-pressure").text(formatPressure(seatRight));
-	$("." + type + ".pressure.seat-rear-pressure").text(formatPressure(seatRear));
-
-	var feedback = "N/A";
-
-	if (backScore > 0 && backScore < 30 && seatScore > 0 && seatScore < 30) {
-		$("." + type + ".overall").text("Good Posture");
-		$("." + type + ".overall").removeClass("overall-bad");
-		$("." + type + ".overall").removeClass("overall-good");
-		$("." + type + ".overall").addClass("overall-good");
-		
-
-		feedback = "Looking Good!";
-	} else if (backScore > 0 && backScore < 30) {
-		$("." + type + ".overall").text("Bad Posture");
-
-		$("." + type + ".overall").removeClass("overall-bad");
-		$("." + type + ".overall").removeClass("overall-good");
-		$("." + type + ".overall").addClass("overall-bad");
-
-		if (seatLeft > 1.5 * seatRight)
-			feedback = "Your weight is unbalanced to the left of the seat.";
-		else if (seatRight > 1.5 * seatLeft)
-			feedback = "Your weight is unbalanced to the right of the seat.";
-	} else if (seatScore > 0 && seatScore < 30) {
-		$("." + type + ".overall").text("Bad Posture");
-				$("." + type + ".overall").removeClass("overall-bad");
-		$("." + type + ".overall").removeClass("overall-good");
-		$("." + type + ".overall").addClass("overall-bad");
-		if (backLeft > 1.5 * backBottom && backRight > 1.5 * backBottom)
-			feedback = "Your upper back is against the backrest but your lower back is not. Try not to arch your back.";
-		else if (backBottom > 1.5 * backLeft && backBottom > 1.5 * backRight)
-			feedback = "Your lower back is against the backrest but your upper back is not. Make sure to sit up straight.";
-	}
-
+	$("." + type + ".pressure.back-left-pressure").text(formatPressure((backLeft / 1023) * 100) + "%");
+	$("." + type + ".pressure.back-right-pressure").text(formatPressure((backRight / 1023) * 100) + "%");
+	$("." + type + ".pressure.back-bottom-pressure").text(formatPressure((backBottom / 1023) * 100) + "%");
+	$("." + type + ".pressure.seat-left-pressure").text(formatPressure((seatLeft / 1023) * 100) + "%");
+	$("." + type + ".pressure.seat-right-pressure").text(formatPressure((seatRight / 1023) * 100) + "%");
+	$("." + type + ".pressure.seat-rear-pressure").text(formatPressure((seatRear / 1023) * 100) + "%");
+	$("." + type + ".overall").text(classification);
 	$("." + type + ".feedback").text(feedback);
+
+	// remove existing styling, then replace with good/bad based on new value
+	$("." + type + ".overall").removeClass("overall-bad");
+	$("." + type + ".overall").removeClass("overall-good");
+	
+	if(classification.toLowerCase().includes("bad"))
+		$("." + type + ".overall").addClass("overall-bad");
+	else
+		$("." + type + ".overall").addClass("overall-good");
+
+
+
+	// var feedback = "N/A";
+
+	// if (backScore > 0 && backScore < 30 && seatScore > 0 && seatScore < 30) {
+	// 	feedback = "Looking Good!";
+	// } else if (backScore > 0 && backScore < 30) {
+	// 	if (seatLeft > 1.5 * seatRight)
+	// 		feedback = "Your weight is unbalanced to the left of the seat.";
+	// 	else if (seatRight > 1.5 * seatLeft)
+	// 		feedback = "Your weight is unbalanced to the right of the seat.";
+	// } else if (seatScore > 0 && seatScore < 30) {
+	// 	if (backLeft > 1.5 * backBottom && backRight > 1.5 * backBottom)
+	// 		feedback = "Your upper back is against the backrest but your lower back is not. Try not to arch your back.";
+	// 	else if (backBottom > 1.5 * backLeft && backBottom > 1.5 * backRight)
+	// 		feedback = "Your lower back is against the backrest but your upper back is not. Make sure to sit up straight.";
+	// }
 }
 
 function formatPressure(pressure) {
