@@ -138,8 +138,30 @@ function update() {
 
 		} else {
 			// fill with 0 if no data
-			updateText("cur", 0, 0, 0, 0, 0, 0, 0, 0);
-			updateText("avg", 0, 0, 0, 0, 0, 0, 0, 0);
+			updateText("cur", {
+				"backScore": 0,
+				"seatScore": 0,
+				"classification": "_____",
+				"feedback": "",
+				"backLeft": 0,
+				"backRight": 0,
+				"backBottom": 0,
+				"seatLeft": 0,
+				"seatRight": 0,
+				"seatRear": 0
+			});
+			updateText("avg", {
+				"backScore": 0,
+				"seatScore": 0,
+				"classification": "_____",
+				"feedback": "",
+				"backLeft": 0,
+				"backRight": 0,
+				"backBottom": 0,
+				"seatLeft": 0,
+				"seatRight": 0,
+				"seatRear": 0
+			});
 		}
 	});
 }
