@@ -18,11 +18,12 @@ class Pressure(db.Model):
     back_score = db.Column(db.Float, nullable=False)
     seat_score = db.Column(db.Float, nullable=False)
     classification = db.Column(db.String, nullable=False)
+    feedback = db.Column(db.String, nullable=False)
 
     def serialize(self):
         return {
             'p_id': self.p_id,
-            'timestamp': self.timestamp.strftime("%H:%M:%S"),
+            'timestamp': self.time_string(),
             'back_left': self.back_left,
             'back_right': self.back_right,
             'back_bottom': self.back_bottom,
@@ -31,5 +32,9 @@ class Pressure(db.Model):
             'seat_rear': self.seat_rear,
             'back_score': self.back_score,
             'seat_score': self.seat_score,
-            'classification': self.classification
+            'classification': self.classification,
+            'feedback': self.feedback
         }
+
+    def time_string(self):
+        return self.timestamp.strftime("%H:%M:%S")
