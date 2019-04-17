@@ -38,14 +38,17 @@ def data_input():
 
     # TODO check that knn is initialized
     classification = make_prediction(knn, back_score, seat_score)
+    feedback = ""
+    if classification.lower() == "bad":
+        feedback = make_advice(back_left, back_right, back_bottom,
+                               seat_left, seat_right, seat_rear)
 
     p1 = Pressure(timestamp=datetime.now(), back_left=back_left, back_right=back_right,
                   back_bottom=back_bottom,
                   seat_left=seat_left, seat_right=seat_right,
                   seat_rear=seat_rear, back_score=back_score, seat_score=seat_score,
                   classification=classification,
-                  feedback=make_advice(back_left, back_right, back_bottom,
-                                       seat_left, seat_right, seat_rear))
+                  feedback=feedback)
 
     db.session.add(p1)
     db.session.commit()
