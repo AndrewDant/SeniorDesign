@@ -112,6 +112,7 @@ def make_prediction(model,back_score,seat_score):
 def main():
     model_data = get_data()                                       # Get data for model training and testing
     knn, data_table, test_in, test_out = make_model(model_data)  # Train model using input data
+    return knn
     #sns.set_context('notebook',font_scale=1.1)
     #sns.set_style('ticks')
     #sns.lmplot('Seat Score','Backrest Score', scatter=True,fit_reg=False,data=data_table,hue='Class')
